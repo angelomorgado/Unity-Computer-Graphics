@@ -32,6 +32,7 @@ namespace Heightmap_namespace
 
         public void setNoiseParameters()
         {
+            noise.SetSeed(seed);
             noise.SetNoiseType(type);
             noise.SetFrequency(frequency);
             noise.SetFractalType(fractalType);
@@ -101,6 +102,21 @@ namespace Heightmap_namespace
         public int getHeight()
         {
             return height;
+        }
+
+        public float[,] getHeights()
+        {
+            float[,] heights = new float[width, height];
+
+            for(int y = 0; y < height; y++)
+            {
+                for(int x = 0; x < width; x++)
+                {
+                    heights[x, y] = tex.GetPixel(x, y).r;
+                }
+            }
+
+            return heights;
         }
 
         public void setSeed(int seed)

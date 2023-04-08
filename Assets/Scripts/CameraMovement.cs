@@ -6,6 +6,10 @@ public class CameraMovement : MonoBehaviour
 {
 
     private int speed = 10;
+    public float lookSpeed = 3.0f;
+    private float rotationX = 0.0f;
+    private float rotationY = 0.0f;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -54,14 +58,18 @@ public class CameraMovement : MonoBehaviour
             speed = 10;
         }
 
-        if (Input.GetKey(KeyCode.LeftArrow))
-        {
-            transform.Rotate(0, -1, 0);
-        }
+        // Get input from arrow keys
+        float horizontal = (Input.GetKey(KeyCode.LeftArrow) ? -1 : 0) + (Input.GetKey(KeyCode.RightArrow) ? 1 : 0);
+        float vertical = (Input.GetKey(KeyCode.DownArrow) ? -1 : 0) + (Input.GetKey(KeyCode.UpArrow) ? 1 : 0);
 
-        if (Input.GetKey(KeyCode.RightArrow))
-        {
-            transform.Rotate(0, 1, 0);
-        }
+        // Adjust rotation based on input
+        rotationX += vertical * lookSpeed;
+        rotationY += horizontal * lookSpeed;
+
+        // Clamp vertical rotation to avoid flipping upside down
+        rotationX = Mathf.Clamp(rotationX, -90f, 90f);
+
+        // Apply rotation to camera transform
+        transform.rotation = Quaternion.Euler(-rotationX, rotationY, 0.0f);
     }
 }
