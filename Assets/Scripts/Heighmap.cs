@@ -6,11 +6,16 @@ namespace Heightmap_namespace
         // Heightmap variables
         private int seed = 0;
         private FastNoiseLite.NoiseType type = FastNoiseLite.NoiseType.OpenSimplex2;
+        // Fractal
         private FastNoiseLite.FractalType fractalType = FastNoiseLite.FractalType.FBm;
         private int octaves = 8;
         private float frequency = 0.005f;
         private float lacunarity = 0.80f;
         private float gain = 0.40f;
+        // Cellullar variables
+        private FastNoiseLite.CellularDistanceFunction distanceFunction = FastNoiseLite.CellularDistanceFunction.EuclideanSq;
+        private FastNoiseLite.CellularReturnType returnType = FastNoiseLite.CellularReturnType.Distance;
+        private float cellularJitter = 1.0f;
 
         // Texture variables
         private int width = 256;
@@ -22,7 +27,6 @@ namespace Heightmap_namespace
 
         private FastNoiseLite noise;
         private Texture2D tex;
-
 
         public Heightmap()
         {
@@ -39,6 +43,9 @@ namespace Heightmap_namespace
             noise.SetFractalLacunarity(lacunarity);
             noise.SetFractalOctaves(octaves);
             noise.SetFractalGain(gain);
+            noise.SetCellularDistanceFunction(distanceFunction);
+            noise.SetCellularReturnType(returnType);
+            noise.SetCellularJitter(cellularJitter);
         }
 
         public void GenerateTexture()
@@ -152,6 +159,21 @@ namespace Heightmap_namespace
         public void setGain(float gain)
         {
             this.gain = gain;
+        }
+
+        public void setDistanceFunction(FastNoiseLite.CellularDistanceFunction distanceFunction)
+        {
+            this.distanceFunction = distanceFunction;
+        }
+
+        public void setReturnType(FastNoiseLite.CellularReturnType returnType)
+        {
+            this.returnType = returnType;
+        }
+
+        public void setCellularJitter(float cellularJitter)
+        {
+            this.cellularJitter = cellularJitter;
         }
 
         public void setWidth(int width)
