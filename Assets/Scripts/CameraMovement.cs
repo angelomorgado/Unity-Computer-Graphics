@@ -63,8 +63,8 @@ public class CameraMovement : MonoBehaviour
         float vertical = (Input.GetKey(KeyCode.DownArrow) ? -1 : 0) + (Input.GetKey(KeyCode.UpArrow) ? 1 : 0);
 
         // Adjust rotation based on input
-        rotationX += vertical * lookSpeed;
-        rotationY += horizontal * lookSpeed;
+        rotationX += vertical * lookSpeed * Time.deltaTime;
+        rotationY += horizontal * lookSpeed * Time.deltaTime;
 
         // Clamp vertical rotation to avoid flipping upside down
         rotationX = Mathf.Clamp(rotationX, -90f, 90f);
